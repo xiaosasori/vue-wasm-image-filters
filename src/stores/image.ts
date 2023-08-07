@@ -6,11 +6,20 @@ interface ImageState {
   filter: string
 }
 
-export const useCounterStore = defineStore('image', () => {
+export const useImageStore = defineStore('image', () => {
   const image = reactive<ImageState>({
     file: null,
     filter: ''
   })
 
-  return { image }
+  function upload(e: DragEvent) {
+    if (!e.dataTransfer) return
+    const tempFile = e.dataTransfer.files[0]
+
+    if (!tempFile.type.match('image.*')) return
+
+    image.file = tempFile
+  }
+
+  return { image, upload }
 })
