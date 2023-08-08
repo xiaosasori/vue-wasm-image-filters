@@ -5,6 +5,17 @@ export default function useCanvas() {
   let canvasCtx: CanvasRenderingContext2D | null = null
   const imgEl = new Image()
 
+  function calculateAspectRatio(
+    srcWidth: number,
+    srcHeight: number,
+    maxWidth: number,
+    maxHeight: number
+  ) {
+    const ratio = Math.min(maxWidth / srcWidth, maxHeight, srcHeight)
+
+    return { width: srcWidth * ratio, height: srcHeight * ratio }
+  }
+
   function loadImage(url: string) {
     if (!canvasEl.value) return
 
@@ -18,7 +29,11 @@ export default function useCanvas() {
   function drawOriginalImage() {
     if (!canvasCtx || !canvasEl.value) return
 
-    canvasCtx.drawImage(imgEl, 0, 0)
+    const newImgDimension = calculateAspectRatio(imgEl.naturalWidth, imgEl.naturalHeight, 448, 448)
+    canvasEl.value.width = newImgDimension.width
+    canvasEl.value.height = newImgDimension.height
+
+    canvasCtx.drawImage(imgEl, 0, 0, newImgDimension.width, newImgDimension.height)
   }
 
   return {
