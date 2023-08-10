@@ -38,6 +38,7 @@ export default function useCanvas() {
 
   return {
     canvasEl,
-    loadImage
+    loadImage,
+    drawOriginalImage
   }
 }
