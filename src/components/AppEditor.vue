@@ -22,7 +22,7 @@ store.$subscribe((mutation, state) => {
 
 <template>
   <div class="my-8">
-    <canvas ref="canvasEl" width="448" height="448"> </canvas>
+    <canvas ref="canvasEl" class="mx-auto" width="448" height="448"> </canvas>
     <div class="text-white text-xl mt-4">
       <div class="flex justify-center gap-4">
         <button
