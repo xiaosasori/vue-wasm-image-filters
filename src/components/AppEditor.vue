@@ -6,7 +6,7 @@ import useCanvas from '@/composables/use-canvas'
 const filters = ['oceanic', 'vintage', 'rosetint']
 
 const store = useImageStore()
-const { canvasEl, loadImage, drawOriginalImage } = useCanvas()
+const { canvasEl, loadImage, drawOriginalImage, filterImage } = useCanvas()
 const { reader } = useReader(store.image.file, () => {
   if (!reader.result) return
 
@@ -14,8 +14,9 @@ const { reader } = useReader(store.image.file, () => {
   loadImage(dataURL)
 })
 
-store.$subscribe(() => {
+store.$subscribe((mutation, state) => {
   drawOriginalImage()
+  filterImage(state.image.filter)
 })
 </script>
 
